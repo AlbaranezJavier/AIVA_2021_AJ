@@ -50,7 +50,7 @@ The imperfections present in the wood pieces have a dark coloration due to knots
 </p>
 
 ## Links of interest
-- [DRS documentation](./docs/files/DSR.docx)
+- [DSR documentation](./docs/files/DSR.pdf)
 - [Client scheme](./docs/images/ClientScheme.png)
 
 <p align="center">
