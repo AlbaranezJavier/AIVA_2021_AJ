@@ -1,39 +1,41 @@
 import unittest
 from tools.ImperfectionRecognizer import *
+from tools.LabelsManager import label2mask
+import cv2
 
 
 class TestImperfectionRecognizer(unittest.TestCase):
 
-    def test_imperfectionDetector(self):
+    def test_comparation(self):
+        path_image = '../Samples/Test/1.png'
+        path_label = '../Samples/Test/1.reg'
+        threshold_factor = 10
+        threshold_test = 10
 
-        imagen = 'imagen'
-        cr = CracksRecognizer()
-        kr = KnotsRecognizer()
-        ir = ImperfectionRecognizer(cr, kr)
-        result = ir.getsAllImperfections(imagen)
-        self.assertEqual(result,'CrackRecognizer imperfectionDetectorKnotsRecognizer imperfectionDetector')
+        img = cv2.imread(path_image)
+        mask_label = label2mask(path_label, img.shape)
+        ir = ImperfectionRecognizer(threshold_factor = threshold_factor)
+        ir.imperfections(img)
+        ir.imperfections_mask = mask_label
+        percent_label = ir.quantify_imperfections()
 
-    def test_crackRecognizer_imperfectionSegmentator(self):
-        imagen = 'imagen'
-        cr = CracksRecognizer()
-        result = cr.imperfectionSegmentator(imagen)
-        self.assertEqual(result, 'This has to fail!!')
+        _, percent_ours = ir.imperfections_and_quantification(img)
 
-    def test_knotRecognizer_imperfectionSegmentator(self):
-        imagen = 'imagen'
-        kr = KnotsRecognizer()
-        result = kr.imperfectionSegmentator(imagen)
-        self.assertEqual(result, 'KnotsRecognizer imperfectionSegmentator')
+        self.assertLess(abs(percent_label - percent_ours), threshold_test)
 
-    def test_crackRecognizer_imperfectionCuantification(self):
-        cr = CracksRecognizer()
-        result = cr.imperfectionCuantification()
-        self.assertEqual(result, 'CrackRecognizer imperfectionCuantification')
+    def test_binary_mask(self):
+        path_image = '../Samples/Train/25.png'
+        path_label = '../Samples/Train/25.reg'
+        img = cv2.imread(path_image)
 
-    def test_knotRecognizer_imperfectionCuantification(self):
-        kr = KnotsRecognizer()
-        result = kr.imperfectionCuantification()
-        self.assertEqual(result, 'KnotsRecognizer imperfectionCuantification')
+        mask_gt = np.zeros((img.shape[0], img.shape[1]))
+        mask_gt[120:178, 263:299] = 1
+        mask_gt[296:332, 1:481] = 1
+        mask_gt[71:146, 126:164] = 1
+        mask_label = label2mask(path_label, img.shape)
+        result = (mask_gt == mask_label)
+        self.assertEqual(result.all(), True)
+
 
 if __name__ == '__main__':
     unittest.main()
