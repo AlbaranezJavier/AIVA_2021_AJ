@@ -1,6 +1,6 @@
 import unittest
-from Unit_test.ImperfectionRecognizer import *
-import pytest
+from tools.ImperfectionRecognizer import *
+
 
 class TestImperfectionRecognizer(unittest.TestCase):
 
