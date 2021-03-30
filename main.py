@@ -9,8 +9,8 @@ This script performs a detection of the cracks and knots present in a piece of w
 
 if __name__ == '__main__':
     # Variables
-    paths = glob.glob(f'./Samples/Train/*.png')
-    ir = ImperfectionRecognizer(threshold_factor=20)
+    paths = glob.glob(f'./Samples/Test/*.png')
+    ir = ImperfectionRecognizer(threshold_factor=2)
 
     # Load image
     for path in paths:
