@@ -269,6 +269,8 @@ class Statistics:
 
 if __name__ == '__main__':
     s = Statistics(p=0.01)
+    s.tp_fn_fp_tn(mask, gt)
     s.test(50, 20, 10, 200)
     s.others()
     s.print_table()
+    s.mydict.keys("precision")

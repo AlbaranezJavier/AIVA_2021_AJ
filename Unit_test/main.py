@@ -1,6 +1,6 @@
 import unittest
-from TestSD import TestStatistics
-from TestIR import TestImperfectionRecognizer
+from Unit_test.TestSD import TestStatistics
+from Unit_test.TestIR import TestImperfectionRecognizer
 
 """
 This script executes a set of tests

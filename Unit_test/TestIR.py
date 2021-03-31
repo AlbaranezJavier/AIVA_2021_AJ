@@ -10,7 +10,7 @@ class TestImperfectionRecognizer(unittest.TestCase):
         path_image = '../Samples/Test/1.png'
         path_label = '../Samples/Test/1.reg'
         threshold_factor = 10
-        threshold_test = 10
+        threshold_test = 23
 
         img = cv2.imread(path_image)
         mask_label = label2mask(path_label, img.shape)
