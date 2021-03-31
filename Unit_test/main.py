@@ -6,22 +6,16 @@ from TestIR import TestImperfectionRecognizer
 This script executes a set of tests
 """
 
-class SuiteTest():
+class SuiteTest(unittest.TestSuite):
 
     def run(self):
         """
         Run the TestStatistics and TestImperfectionRecognizer tests.
         :return: results
         """
-        suite = unittest.TestSuite()
-        suite.addTest(TestStatistics("test_statistics"))
-        suite.addTest(TestImperfectionRecognizer("test_comparation"))
-        suite.addTest(TestImperfectionRecognizer("test_binary_mask"))
-
-        runner = unittest.TextTestRunner()
-        runner.run(suite)
-
+        self.addTest(TestStatistics("test_statistics"))
+        self.addTest(TestImperfectionRecognizer("test_comparation"))
+        self.addTest(TestImperfectionRecognizer("test_binary_mask"))
 
 if __name__ == '__main__':
-    st = SuiteTest()
-    st.run()
+    unittest.main()
