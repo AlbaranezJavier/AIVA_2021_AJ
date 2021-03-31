@@ -13,19 +13,15 @@ class Statistics:
     def __init__(self, p):
         self.confidence_interval_p = p
         self.mydict = {
-            "population": 0, "pp": 0, "bias": 0, "pn": 0, "ib": 0,
-            "rp": 0, "tp": 0, "recall": 0, "fn": 0, "fnr": 0, "lr+": 0,
-            "prevalence": 0, "precision": 0, "performance": 0, "fna": 0, "irr": 0, "lr-": 0,
-            "rn": 0, "fp": 0, "fpr": 0, "tn": 0, "specifity": 0, "dor": 0,
-            "ner": 0, "fdr": 0, "der": 0, "ip": 0, "crr": 0, "informedness": 0,
-            "chi": 0, "correlation": 0, "pra": 0, "markedness": 0, "accuracy": 0,
-            "mcc": 0, "iou": 0, "ck": 0, "mr": 0, "f1": 0,
-            "i_recall": [0, 0], "i_fnr": 0, "i_precision": 0, "i_performance": 0, "i_fna": 0, "i_irr": 0, "i_bias": 0,
-            "i_ib": 0,
-            "i_prevalence": 0, "i_fpr": 0, "i_tnr": 0, "i_ner": 0, "i_fdr": 0,
+            "population": 0, "pp": 0, "bias": 0, "pn": 0, "ib": 0, "rp": 0, "tp": 0, "recall": 0, "fn": 0, "fnr": 0,
+            "lr+": 0, "prevalence": 0, "precision": 0, "performance": 0, "fna": 0, "irr": 0, "lr-": 0, "rn": 0, "fp": 0,
+            "fpr": 0, "tn": 0, "specifity": 0, "dor": 0, "ner": 0, "fdr": 0, "der": 0, "ip": 0, "crr": 0,
+            "informedness": 0, "chi": 0, "correlation": 0, "pra": 0, "markedness": 0, "accuracy": 0, "mcc": 0, "iou": 0,
+            "ck": 0, "mr": 0, "f1": 0,
+            "i_recall": [0, 0], "i_fnr": 0, "i_precision": 0, "i_performance": 0, "i_fna": 0,
+            "i_irr": 0, "i_bias": 0, "i_ib": 0, "i_prevalence": 0, "i_fpr": 0, "i_tnr": 0, "i_ner": 0, "i_fdr": 0,
             "i_der": 0, "i_ip": 0, "i_crr": 0, "i_correlation": 0, "i_accuracy": 0, "i_iou": 0, "i_mr": 0, "i_f1": 0,
-            "i_specifity": 0,
-            "p": 0
+            "i_specifity": 0, "p": 0
         }
 
     def tp_fn_fp_tn(self, predicted, gt):
@@ -89,7 +85,7 @@ class Statistics:
         # Bias, Inverse Bias, Prevalence, Null Error Rate
         self.mydict["bias"] = np.around((self.mydict["pp"] / self.mydict["population"]) * 100, 2)
         self.mydict["i_bias"] = np.around(proportion_confint(count=self.mydict["pp"], nobs=self.mydict["population"],
-                               alpha=self.confidence_interval_p, method="beta"), 2) * 100
+                                                             alpha=self.confidence_interval_p, method="beta"), 2) * 100
         self.mydict["ib"] = np.around((self.mydict["pn"] / self.mydict["population"]) * 100, 2)
         self.mydict["i_ib"] = np.around(
             proportion_confint(count=self.mydict["pn"], nobs=self.mydict["population"],
