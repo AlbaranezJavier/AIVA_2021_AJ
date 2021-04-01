@@ -32,15 +32,14 @@ class Statistics:
         :return: tp, fn, fp, tn
         """
         # variables
-        _zeros = np.zeros_like(predicted)
         _ones = np.ones_like(predicted)
-        _predicted_zeros = np.logical_and(predicted, _zeros)
-        _gt_zeros = np.logical_and(gt, _zeros)
+        _predicted_zeros = np.logical_not(predicted)
+        _gt_zeros = np.logical_not(gt)
 
         # TP, FN, FP, TN
         self.mydict["tp"] = np.sum(np.logical_and(predicted, gt))
-        self.mydict["fn"] = np.sum(np.logical_and(_predicted_zeros, np.logical_and(gt, _ones)))
-        self.mydict["fp"] = np.sum(np.logical_and(np.logical_and(predicted, _ones), _gt_zeros))
+        self.mydict["fn"] = np.sum(np.logical_and(_predicted_zeros, gt))
+        self.mydict["fp"] = np.sum(np.logical_and(predicted, _gt_zeros))
         self.mydict["tn"] = np.sum(np.logical_and(_predicted_zeros, _gt_zeros))
 
         return self.mydict["tp"], self.mydict["fn"], self.mydict["fp"], self.mydict["tn"]
@@ -225,42 +224,42 @@ class Statistics:
         :return:
         """
         # Creating table
-        table = [[f'Population\n{self.mydict["population"]}', "", f'Predicted Positive\n{self.mydict["pp"]}',
-                  f'Bias\n{self.mydict["bias"]} {self.mydict["i_bias"]}%', f'Predicted Negative\n{self.mydict["pn"]}',
-                  f'Inverse Bias\n{self.mydict["ib"]} {self.mydict["i_ib"]}%', "", ""],
+        table = [[f'Population\nN = TP+TN+FP+FN\n{self.mydict["population"]}', "", f'Predicted Positive\nPP = TP+FP\n{self.mydict["pp"]}',
+                  f'Bias\npp = PP/N\n{self.mydict["bias"]} {self.mydict["i_bias"]}%', f'Predicted Negative\nPN = FN+TN\n{self.mydict["pn"]}',
+                  f'Inverse Bias\npn = PN/N\n{self.mydict["ib"]} {self.mydict["i_ib"]}%', "", ""],
                  [],
-                 [f'Real Positive\n{self.mydict["rp"]}', "", f'TP\n{self.mydict["tp"]}',
-                  f'Recall\n{self.mydict["recall"]} {self.mydict["i_recall"]}%',
-                  f'False Negative\n{self.mydict["fn"]}', f'FNR\n{self.mydict["fnr"]} {self.mydict["i_fnr"]}%', "",
-                  f'LR+\n{self.mydict["lr+"]}'],
-                 [f'Prevalence\n{self.mydict["prevalence"]} {self.mydict["i_prevalence"]}%', "",
-                  f'Precision\n{self.mydict["precision"]} {self.mydict["i_precision"]}%',
-                  f'Performance\n{self.mydict["performance"]} {self.mydict["i_performance"]}%',
-                  f'FN Accuracy\n{self.mydict["fna"]} {self.mydict["i_fna"]}%',
-                  f'Incorrect Rejection Rate\n{self.mydict["irr"]} {self.mydict["i_irr"]}%', "",
-                  f'LR-\n{self.mydict["lr-"]}'],
+                 [f'Real Positive\nRP = TP+FN\n{self.mydict["rp"]}', "", f'TP\n\n{self.mydict["tp"]}',
+                  f'Recall\ntpr = TP/RP\n{self.mydict["recall"]} {self.mydict["i_recall"]}%',
+                  f'FN\n\n{self.mydict["fn"]}', f'FNR\nfnr = FN/RP\n{self.mydict["fnr"]} {self.mydict["i_fnr"]}%', "",
+                  f'LR+\nLR+ = tpr/fpr\n{self.mydict["lr+"]}'],
+                 [f'Prevalence\nrp = RP/N\n{self.mydict["prevalence"]} {self.mydict["i_prevalence"]}%', "",
+                  f'Precision\ntpa = TP/PP\n{self.mydict["precision"]} {self.mydict["i_precision"]}%',
+                  f'Performance\ntp = TP/N\n{self.mydict["performance"]} {self.mydict["i_performance"]}%',
+                  f'FN Accuracy\nfna = FN/PN\n{self.mydict["fna"]} {self.mydict["i_fna"]}%',
+                  f'Incorrect Rejection Rate\nfn = FN/N\n{self.mydict["irr"]} {self.mydict["i_irr"]}%', "",
+                  f'LR-\nLR- = fnr/tnr\n{self.mydict["lr-"]}'],
                  [],
-                 [f'Real Negative\n{self.mydict["rn"]}', "", f'FP\n{self.mydict["fp"]}',
-                  f'FPR\n{self.mydict["fpr"]} {self.mydict["i_fpr"]}%',
-                  f'TN\n{self.mydict["tn"]}', f'Specifity\n{self.mydict["specifity"]} {self.mydict["i_specifity"]}%',
+                 [f'Real Negative\nRN = FP+TN\n{self.mydict["rn"]}', "", f'FP\n\n{self.mydict["fp"]}',
+                  f'FPR\nfpr = FP/RN\n{self.mydict["fpr"]} {self.mydict["i_fpr"]}%',
+                  f'TN\n\n{self.mydict["tn"]}', f'Specifity\ntnr = TN/RN\n{self.mydict["specifity"]} {self.mydict["i_specifity"]}%',
                   "",
-                  f'Odds ratio\n{self.mydict["dor"]}'],
-                 [f'Null Error Rate\n{self.mydict["ner"]} {self.mydict["i_ner"]}%', "",
-                  f'False Discovery Rate\n{self.mydict["fdr"]} {self.mydict["i_fdr"]}%',
-                  f'Delivered Error Rate\n{self.mydict["der"]} {self.mydict["i_der"]}%',
-                  f'Inverse Precision\n{self.mydict["ip"]} {self.mydict["i_ip"]}%',
-                  f'Correct Rejection Rate\n{self.mydict["crr"]} {self.mydict["i_crr"]}%', "",
-                  f'Informedness\n{self.mydict["informedness"]}%'],
+                  f'Odds ratio\ndor = LR+/LR-\n{self.mydict["dor"]}'],
+                 [f'Null Error Rate\nrn = RN/N\n{self.mydict["ner"]} {self.mydict["i_ner"]}%', "",
+                  f'False Discovery Rate\nfdr = FP/PP\n{self.mydict["fdr"]} {self.mydict["i_fdr"]}%',
+                  f'Delivered Error Rate\nfp = FP/N\n{self.mydict["der"]} {self.mydict["i_der"]}%',
+                  f'Inverse Precision\ntna = TN/PN\n{self.mydict["ip"]} {self.mydict["i_ip"]}%',
+                  f'Correct Rejection Rate\ntn = TN/N\n{self.mydict["crr"]} {self.mydict["i_crr"]}%', "",
+                  f'Informedness\n = tpr - fpr\n{self.mydict["informedness"]}%'],
                  [],
-                 ["", "", f'Chi square\n{self.mydict["chi"]} p={self.mydict["p"]}',
-                  f'Correlation\n{self.mydict["correlation"]} {self.mydict["i_correlation"]}',
-                  f'Prob. Random Agreement\n{self.mydict["pra"]}%', f'Markedness\n{self.mydict["markedness"]}%', "",
-                  f'Accuracy\n{self.mydict["accuracy"]} {self.mydict["i_accuracy"]}%'],
-                 ["", "", f'Matthews Corr. Coeff.\n{self.mydict["mcc"]}',
-                  f'IoU\n{self.mydict["iou"]} {self.mydict["i_iou"]}%',
-                  f'Cohen Kappa\n{self.mydict["ck"]}',
-                  f'Misclassification Rate\n{self.mydict["mr"]} {self.mydict["i_mr"]}%', "",
-                  f'F1 score\n{self.mydict["f1"]} {self.mydict["i_f1"]}%']]
+                 ["", "", f'Chi square\n{self.mydict["chi"]}\np={self.mydict["p"]}',
+                  f'Correlation\n(TP*TN - FP*FN)/(PP*RP*RN*PN)**.5\n{self.mydict["correlation"]} {self.mydict["i_correlation"]}',
+                  f'Prob. Random Agreement\npra = (PP*RP + PN*RN)/(N)**2\n{self.mydict["pra"]}%', f'Markedness\n= tpa - fna\n{self.mydict["markedness"]}%', "",
+                  f'Accuracy\nacc = (TP + TN) / N\n{self.mydict["accuracy"]} {self.mydict["i_accuracy"]}%'],
+                 ["", "", f'Matthews Corr. Coeff.\nmcc = (chi / N)**.5\n{self.mydict["mcc"]}',
+                  f'IoU\n= TP/(N-TN)\n{self.mydict["iou"]} {self.mydict["i_iou"]}%',
+                  f'Cohen Kappa\n= (acc-pra)/(1-pra)\n{self.mydict["ck"]}',
+                  f'Misclassification Rate\nerr = (PF+FN)/N\n{self.mydict["mr"]} {self.mydict["i_mr"]}%', "",
+                  f'F1 score\n= 2*TP/(RP+PP)\n{self.mydict["f1"]} {self.mydict["i_f1"]}%']]
 
         # Displaying table
         print(tabulate(table, tablefmt='grid',
@@ -269,8 +268,6 @@ class Statistics:
 
 if __name__ == '__main__':
     s = Statistics(p=0.01)
-    s.tp_fn_fp_tn(mask, gt)
     s.test(50, 20, 10, 200)
     s.others()
     s.print_table()
-    s.mydict.keys("precision")

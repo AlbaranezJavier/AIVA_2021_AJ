@@ -14,7 +14,7 @@ class SuiteTest(unittest.TestSuite):
         :return: results
         """
         self.addTest(TestStatistics("test_statistics"))
-        self.addTest(TestImperfectionRecognizer("test_comparation"))
+        self.addTest(TestImperfectionRecognizer("test_prediction_vs_gt"))
         self.addTest(TestImperfectionRecognizer("test_binary_mask"))
 
 if __name__ == '__main__':

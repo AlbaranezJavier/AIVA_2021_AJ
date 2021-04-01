@@ -22,7 +22,7 @@ if __name__ == '__main__':
         # Show info
         print(f"Image: {path.split('/')[-1]}, percentage of imperfections: {percent}")
 
-        fig, axs = plt.subplots(1,2)
+        fig, axs = plt.subplots(1, 2)
         axs[0].imshow(mask)
         axs[0].set_title("Mask")
         axs[1].imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
