@@ -49,6 +49,8 @@ class TestImperfectionRecognizer(unittest.TestCase):
                 axs[0].set_title("Predicted")
                 axs[1].imshow(_mask_gt)
                 axs[1].set_title("Gt")
+                #axs[2].imshow(cv2.cvtColor(_example, cv2.COLOR_BGR2RGB))
+                #axs[2].set_title("Example")
                 fig.suptitle(f'{_path_example}')
                 plt.show()
 
