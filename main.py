@@ -1,5 +1,4 @@
 import cv2, glob
-import numpy as np
 import matplotlib.pyplot as plt
 from tools.ImperfectionRecognizer import ImperfectionRecognizer
 
