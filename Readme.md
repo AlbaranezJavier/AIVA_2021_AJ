@@ -88,10 +88,9 @@ In summary, image thresholding and morphological operations are being applied to
 ## 5. Metrics
 
 
-
 ## 6. Deployment with Docker and Java
 
-For the deployment of this method, a Docker image has been created with all the necessary dependencies for its use. In the system document you can find a tutorial developed for our customer in which the whole process for its use is explained. [Tutorial](./docs/files/Documento del Sistema.pdf)
+For the deployment of this method, a Docker image has been created with all the necessary dependencies for its use. In the system document you can find a [tutorial](./docs/files/Documento_del_Sistema.pdf) developed for our customer in which the whole process for its use is explained. 
 
 In the deployment diagram you can see how the Docker image (hosted in Docker Hub docker "pull andrestena/image_aiva_2021_aj:latest") generates a container that has the OpenCV, Python and Java dependencies needed to easily test the operation of the developed algorithm.
 
@@ -119,8 +118,8 @@ Finally, the activity diagram for using the generated Docker image is shown. Whe
 
 ## 7. Links of interest
 - [DSR documentation](./docs/files/DSR.pdf)
-- [Design documentation](./docs/files/Documento de diseño.pdf)
-- [System documentation](./docs/files/Documento del Sistema.pdf)
+- [Design documentation](./docs/files/Documento_de_diseno.pdf)
+- [System documentation](./docs/files/Documento_del_Sistema.pdf)
 - [Client scheme](./docs/images/ClientScheme.png)
 
 <p align="center">
