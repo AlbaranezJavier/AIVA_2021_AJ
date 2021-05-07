@@ -63,7 +63,7 @@ The imperfections present in the wood pieces have a dark coloration due to knots
 
 The following images show some examples of very good and not so good results. The problem that has been detected is that a new type of defect has appeared in the wood that was not previously detected. This defect presents a lot of roughness on the surface and alters the brightness levels, modifying in an unstable way the threshold to be used. In future works we will explain some solutions for this problem, but it is important to emphasize that this is a first prototype for the solution of the problem.
 
-The image below shows the sequence diagram of the implemented solution, where the main method uses the classes shown in the UML diagram. And this in turn is divided into two other activity diagrams that show the operation of ImperfectionSegmentator and BackgroundSegmentator.
+The image below shows the sequence diagram of the implemented solution, where the main method uses the classes shown in the [UML diagram](./docs/images/UML_amp.svg). And this in turn is divided into two other activity diagrams that show the operation of ImperfectionSegmentator and BackgroundSegmentator.
 
 - [Solution Sequence Diagram](./docs/images/SequenceDiagram.png)
 
