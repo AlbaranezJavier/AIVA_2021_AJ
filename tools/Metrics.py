@@ -62,7 +62,8 @@ class Metrics:
         _gt_zeros = np.logical_not(gt)
 
         # Deducting FN
-        fn_mask = np.zeros_like(gt)
+        #fn_mask = np.zeros_like(gt)
+        fn = 0
         if (os.path.isfile(path)):
             rects = read_yaml(path)
             for i in range(0, len(rects[0])):
@@ -71,11 +72,13 @@ class Metrics:
                 y_end = y + int(rects[2][i])
                 x_end = x + int(rects[3][i])
 
-                fn_mask[x:x_end, y:y_end] = np.logical_and(predicted[x:x_end, y:y_end], gt[x:x_end, y:y_end])
+                if np.sum(predicted[x:x_end, y:y_end]) == 0:
+                    fn += np.sum(predicted[x:x_end, y:y_end])
+                #fn_mask[x:x_end, y:y_end] = np.logical_and(predicted[x:x_end, y:y_end], gt[x:x_end, y:y_end])
 
         # TP, FN, FP, TN
         self.basic_stats["basic"]["tp"] = int(np.sum(np.logical_and(predicted, gt)))
-        self.basic_stats["basic"]["fn"] = int(np.sum(np.logical_and(_predicted_zeros, gt)) - np.sum(fn_mask))
+        self.basic_stats["basic"]["fn"] = int(fn) #int(np.sum(np.logical_and(_predicted_zeros, gt)))
         self.basic_stats["basic"]["fp"] = int(np.sum(np.logical_and(predicted, _gt_zeros)))
         self.basic_stats["basic"]["tn"] = int(np.sum(np.logical_and(_predicted_zeros, _gt_zeros)))
 
