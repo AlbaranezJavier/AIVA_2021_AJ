@@ -87,6 +87,31 @@ In summary, image thresholding and morphological operations are being applied to
 
 ## 5. Metrics
 
+The results of the algorithm used for the **train** set:
+
+- **FN or False Negatives**: uncorrected data 890797 and corrected data 0 (we consider that if we have detected any defect within the region, it does not count as a false negative).
+- **Precision**: with a value of 93.41%, we can say that the algorithm is very good when telling if a pixel corresponds to a defect.
+- **Recall**: with a value of 100% we are detecting all the defects.
+- **IoU**: with a value of 93.41% we can say that our detections are very close to the size of the defects.
+- **F1 score**: at 96.59%, this is a very high value indicating that the algorithm is really effective.
+
+[Train set metrics](./docs/images/Tables/train_good.PNG)
+<p align="center">
+  <img src="./docs/images/Tables/train_good.PNG" />
+</p>
+
+The results of the algorithm used for the **test** set:
+
+- **FN or False Negatives**: uncorrected 210394 and corrected 0.
+- **Precision**: with a value of 65.09%, this value can be interpreted as meaning that the test data are quite different from the training data or that we have over-adjusted the algorithm parameters.
+- **Recall**: with a value of 100% we are detecting all the defects, but with low precision. This may mean that there is still margin of adjustment for the test data.
+- **IoU**: with a value of 65.09%, this is a low adjustment in detections, due to the low precision this decrease in IoU was predictable.
+- **F1 score**: at 78.86%, together with the rest of the metrics, it can be determined that a parameter search is necessary.
+
+[Test set metrics](./docs/images/Tables/test_good.PNG)
+<p align="center">
+  <img src="./docs/images/Tables/test_good.PNG" />
+</p>
 
 ## 6. Deployment with Docker and Java
 

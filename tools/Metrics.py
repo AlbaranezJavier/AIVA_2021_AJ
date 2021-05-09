@@ -161,7 +161,7 @@ class Metrics:
 
         #  Precision, False Negative Rate, False Discovery Rate, Inverse Precision
         self.precision(type)
-        self.false_negative_rate(type)
+        self.false_negative_accuracy(type)
         self.false_discovery_rate(type)
         self.inverse_precision(type)
 
@@ -421,10 +421,10 @@ class Metrics:
     def correlation(self, basic_type):
         try:
             self.stats["correlation"] = round(
-                (self.basic_stats[basic_type]["tp"] * self.basic_stats[basic_type]["tn"] + self.basic_stats[basic_type][
+                ((self.basic_stats[basic_type]["tp"] * self.basic_stats[basic_type]["tn"] + self.basic_stats[basic_type][
                     "fp"] * self.basic_stats[basic_type]["fn"]) / (
                         self.stats["pp"] * self.stats["rp"] * self.stats["rn"] * self.stats[
-                    "pn"]) ** .5, 2)
+                    "pn"]) ** .5) * 100, 2)
             _temp = proportion_confint(
                 count=(self.basic_stats[basic_type]["tp"] * self.basic_stats[basic_type]["tn"] +
                        self.basic_stats[basic_type]["fp"] * self.basic_stats[basic_type]["fn"]),

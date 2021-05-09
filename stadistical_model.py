@@ -22,6 +22,7 @@ def calculate_statistics():
         mask, percent = ir.imperfections_and_quantification(img)
         mask_gt = label2mask(path_gt, img.shape)
 
+        # s.cal_basic_stats(mask, mask_gt)
         s.cal_basic_stats_modified(mask, mask_gt, path_gt)
         s.update_cumulative_stats()
 
